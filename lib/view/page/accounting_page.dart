@@ -167,7 +167,7 @@ class _AccountingPageState extends State<AccountingPage>
                         width: 8,
                       ),
                       SvgPicture.asset(
-                        'images/arrow_down.svg',
+                        'assets/images/arrow_down.svg',
                         semanticsLabel: 'btn-indicator',
                       )
                     ],
@@ -209,24 +209,24 @@ class _AccountingPageState extends State<AccountingPage>
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-              child: DailyExpenditureView(),
-            ),
-            ExpandableTheme(
-              data: const ExpandableThemeData(
-                iconColor: Colors.blue,
-                useInkWell: true,
-              ),
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                children: <Widget>[
-                  Text("hihi"),
-                  Text("hihi"),
-                  Text("hihi"),
-                ],
-              ),
-            )
+            // Padding(
+            //   padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+            //   child: DailyExpenditureView(),
+            // ),
+            // ExpandableTheme(
+            //   data: const ExpandableThemeData(
+            //     iconColor: Colors.blue,
+            //     useInkWell: true,
+            //   ),
+            //   child: ListView(
+            //     physics: const BouncingScrollPhysics(),
+            //     children: <Widget>[
+            //       Text("hihi"),
+            //       Text("hihi"),
+            //       Text("hihi"),
+            //     ],
+            //   ),
+            // )
           ],
         ),
       ),

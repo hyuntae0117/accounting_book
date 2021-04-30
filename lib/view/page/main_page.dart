@@ -1,6 +1,8 @@
 import 'package:accounting_book/view/module/fab_bottom_app_bar_item.dart';
 import 'package:accounting_book/view/page/accounting_page.dart';
 import 'package:accounting_book/view/page/etc_page.dart';
+import 'package:accounting_book/view/page/expenditure_register_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -49,7 +51,14 @@ class _MainPageState extends State<MainPage>
         child: Scaffold(
           body: SafeArea(child: pageView),
           floatingActionButton: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                CupertinoPageRoute(
+                  fullscreenDialog: true,
+                  builder: (context) => ExpenditureRegisterPage(),
+                ),
+              );
+            },
             child: Icon(Icons.add),
             elevation: 2.0,
           ),

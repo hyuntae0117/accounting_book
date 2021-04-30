@@ -66,10 +66,10 @@ flutter:
   fonts:
     - family: SpoqaHanSans
       fonts:
-        - asset: asset/font/SpoqaHanSans/SpoqaHanSansNeo-Regular.ttf
-        - asset: asset/font/SpoqaHanSans/SpoqaHanSansNeo-Bold.ttf
+        - asset: assets/font/SpoqaHanSans/SpoqaHanSansNeo-Regular.ttf
+        - asset: assets/font/SpoqaHanSans/SpoqaHanSansNeo-Bold.ttf
           weight: 700
-        - asset: asset/font/SpoqaHanSans/SpoqaHanSansNeo-Light.ttf
+        - asset: assets/font/SpoqaHanSans/SpoqaHanSansNeo-Light.ttf
           weight: 300
 
   #   - family: Schyler
