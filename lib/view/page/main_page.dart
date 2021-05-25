@@ -1,5 +1,5 @@
 import 'package:accounting_book/view/module/fab_bottom_app_bar_item.dart';
-import 'package:accounting_book/view/page/accounting_page.dart';
+import 'package:accounting_book/view/page/tab_page/accounting/accounting_tab_page.dart';
 import 'package:accounting_book/view/page/etc_page.dart';
 import 'package:accounting_book/view/page/expenditure_register_page.dart';
 import 'package:flutter/cupertino.dart';
