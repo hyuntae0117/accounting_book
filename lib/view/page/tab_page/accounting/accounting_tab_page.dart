@@ -26,7 +26,7 @@ class _AccountingPageState extends State<AccountingPage>
 
   @override
   void initState() {
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -34,6 +34,40 @@ class _AccountingPageState extends State<AccountingPage>
   void dispose() {
     super.dispose();
     tabController.dispose();
+  }
+
+  Widget _topTabBar() {
+    const unselectedColor = mono400;
+    const selectedColor = mono700;
+
+    return PreferredSize(
+      preferredSize: Size(30, 100),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+        child: TabBar(
+            indicatorColor: mono700,
+            indicatorPadding: EdgeInsets.fromLTRB(8, 6, 8, 6),
+            isScrollable: true,
+            labelColor: selectedColor,
+            unselectedLabelColor: unselectedColor,
+            tabs: [
+              new Tab(
+                child: Text(
+                  '월별',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              new Tab(
+                child: Text(
+                  '연별',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+            controller: tabController,
+            labelPadding: EdgeInsets.fromLTRB(8, 0, 8, 0)),
+      ),
+    );
   }
 
   Widget _spendTypeSelectView() {
@@ -70,49 +104,10 @@ class _AccountingPageState extends State<AccountingPage>
 
   @override
   Widget build(BuildContext context) {
-    const unselectedColor = mono400;
-    const selectedColor = mono700;
-
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(30, 100),
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-            child: TabBar(
-                indicatorColor: mono700,
-                indicatorPadding: EdgeInsets.fromLTRB(8, 6, 8, 6),
-                isScrollable: true,
-                labelColor: selectedColor,
-                unselectedLabelColor: unselectedColor,
-                tabs: [
-                  new Tab(
-                    child: Text(
-                      '월별',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  new Tab(
-                    child: Text(
-                      '연별',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  new Tab(
-                    child: Text(
-                      '전체',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-                controller: tabController,
-                labelPadding: EdgeInsets.fromLTRB(8, 0, 8, 0)),
-          ),
-        ),
+        appBar: _topTabBar(),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
           child: Column(
@@ -124,7 +119,14 @@ class _AccountingPageState extends State<AccountingPage>
                   _spendTypeSelectView(),
                   TextButton(
                     onPressed: () {},
-                    child: Text("접기"),
+                    child: Text(
+                      "접기",
+                      style: TextStyle(
+                        color: mono700,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ],
               ),
