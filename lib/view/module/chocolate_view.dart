@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import '../../design_system.dart';

@@ -69,6 +69,8 @@ flutter:
         - asset: assets/font/SpoqaHanSans/SpoqaHanSansNeo-Regular.ttf
         - asset: assets/font/SpoqaHanSans/SpoqaHanSansNeo-Bold.ttf
           weight: 700
+        - asset: assets/font/SpoqaHanSans/SpoqaHanSansNeo-Medium.ttf
+          weight: 500
         - asset: assets/font/SpoqaHanSans/SpoqaHanSansNeo-Light.ttf
           weight: 300
 

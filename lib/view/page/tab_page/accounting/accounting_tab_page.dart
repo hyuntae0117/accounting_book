@@ -1,5 +1,6 @@
 import 'dart:ui';
-
+import 'dart:math';
+import 'package:accounting_book/model/spend_type.dart';
 import 'package:accounting_book/view/module/chocolate_view.dart';
 import 'package:accounting_book/view/module/daily_expenditure_view.dart';
 import 'package:expandable/expandable.dart';
@@ -21,6 +22,8 @@ class _AccountingPageState extends State<AccountingPage>
 
   TabController tabController;
 
+  SpendType selectedSpendType = SpendType.all;
+
   @override
   void initState() {
     tabController = TabController(length: 3, vsync: this);
@@ -31,6 +34,38 @@ class _AccountingPageState extends State<AccountingPage>
   void dispose() {
     super.dispose();
     tabController.dispose();
+  }
+
+  Widget _spendTypeSelectView() {
+    return DropdownButton(
+      value: selectedSpendType,
+      underline: SizedBox(),
+      iconSize: 8,
+      icon: Padding(
+        padding: EdgeInsets.all(2),
+        child: Transform.rotate(
+          angle: 90 * pi / 180,
+          child: Icon(Icons.arrow_forward_ios_rounded),
+        ),
+      ),
+      items: SpendType.values
+          .map(
+            (e) => DropdownMenuItem(
+              value: e,
+              child: Text(
+                e.title,
+                style: TextStyle(
+                    color: mono700, fontSize: 14, fontWeight: FontWeight.w500),
+              ),
+            ),
+          )
+          .toList(),
+      onChanged: (value) {
+        setState(() {
+          selectedSpendType = value;
+        });
+      },
+    );
   }
 
   @override
@@ -78,10 +113,33 @@ class _AccountingPageState extends State<AccountingPage>
                 labelPadding: EdgeInsets.fromLTRB(8, 0, 8, 0)),
           ),
         ),
-        body: Column(
-          children: [
-            ChocolateView(),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+          child: Column(
+            children: [
+              ChocolateView(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _spendTypeSelectView(),
+                  TextButton(
+                    onPressed: () {},
+                    child: Text("접기"),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: ListView(
+                  children: [
+                    DailyExpenditureView(),
+                    DailyExpenditureView(),
+                    DailyExpenditureView(),
+                    DailyExpenditureView(),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
