@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 const Color mono100 = Color(0xFFFFFFFF);
+const Color mono200 = Color(0xFFF8F2F2);
 const Color mono300 = Color(0xFFEEE2E2);
 const Color mono400 = Color(0xFFD0BBBB);
 const Color mono500 = Color(0xFFAB9999);

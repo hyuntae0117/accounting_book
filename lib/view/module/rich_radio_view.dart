@@ -22,6 +22,8 @@ class _RichRadioViewState extends State<RichRadioView> {
 
   var selectedBgColor = mono600;
 
+  final double buttonSpace = 8;
+
   @override
   Widget build(BuildContext context) {
     List<Widget> buttons = widget.titles
@@ -34,56 +36,64 @@ class _RichRadioViewState extends State<RichRadioView> {
   Widget _button(String title, int index) {
     bool isSelected = widget.titles.indexOf(title) == widget.selectedIndex;
     if (isSelected) {
-      return TextButton(
-        child: Text(
-          title,
-          style: TextStyle(
-            color: selectedTextColor,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
+      return Padding(
+        padding: EdgeInsets.only(right: buttonSpace),
+        child: TextButton(
+          child: Text(
+            title,
+            style: TextStyle(
+              color: selectedTextColor,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            shadowColor: Colors.black54,
+            primary: Colors.black54,
+            minimumSize: Size(50, 30),
+            padding: EdgeInsets.all(1),
+            backgroundColor: selectedBgColor,
           ),
-          shadowColor: Colors.black54,
-          primary: Colors.black54,
-          minimumSize: Size(50, 30),
-          padding: EdgeInsets.all(1),
-          backgroundColor: selectedBgColor,
+          onPressed: () {
+            setState(() {
+              widget.selectedIndex = index;
+              widget.onItemSelected(index);
+            });
+          },
         ),
-        onPressed: () {
-          setState(() {
-            widget.selectedIndex = index;
-          });
-        },
       );
     } else {
-      return TextButton(
-        child: Text(
-          title,
-          style: TextStyle(
-            color: unselectedTextColor,
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
+      return Padding(
+        padding: EdgeInsets.only(right: buttonSpace),
+        child: TextButton(
+          child: Text(
+            title,
+            style: TextStyle(
+              color: unselectedTextColor,
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+          style: TextButton.styleFrom(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            shadowColor: Colors.black54,
+            primary: Colors.black54,
+            minimumSize: Size(50, 30),
+            padding: EdgeInsets.all(1),
+            backgroundColor: unselectedBgColor,
           ),
-          shadowColor: Colors.black54,
-          primary: Colors.black54,
-          minimumSize: Size(50, 30),
-          padding: EdgeInsets.all(1),
-          backgroundColor: unselectedBgColor,
+          onPressed: () {
+            setState(() {
+              widget.selectedIndex = index;
+              widget.onItemSelected(index);
+            });
+          },
         ),
-        onPressed: () {
-          setState(() {
-            widget.selectedIndex = index;
-          });
-        },
       );
     }
   }
