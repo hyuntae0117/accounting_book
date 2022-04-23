@@ -1,11 +1,14 @@
 import 'package:accounting_book/design_system.dart';
 import 'package:accounting_book/model/spend_type.dart';
 import 'package:accounting_book/utils/DateTimeUtils.dart';
+import 'package:accounting_book/view/module/category_view.dart';
 import 'package:accounting_book/view/module/rich_radio_view.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class ExpenditureRegisterPage extends StatefulWidget {
   @override
@@ -23,28 +26,39 @@ class _ExpenditureRegisterPageState extends State<ExpenditureRegisterPage> {
   var fixedExpenditure = false;
 
   Widget _registerRow(String title, Widget widget) {
-    return Container(
-      height: 56,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(width: paddingLeft),
-          SizedBox(
-            width: 56,
-            child: Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-                color: mono500,
+    return GestureDetector(
+      onTap: () {
+        showModalBottomSheet(
+            backgroundColor: Colors.transparent,
+            context: context,
+            builder: (context) {
+              return _getCategoryView(context);
+            });
+      },
+      child: Container(
+        color: mono100,
+        height: 56,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(width: paddingLeft),
+            SizedBox(
+              width: 56,
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: mono500,
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            width: 24,
-          ),
-          widget,
-        ],
+            SizedBox(
+              width: 24,
+            ),
+            widget,
+          ],
+        ),
       ),
     );
   }
@@ -69,6 +83,8 @@ class _ExpenditureRegisterPageState extends State<ExpenditureRegisterPage> {
       Expanded(
         child: TextField(
           cursorColor: mono700,
+          keyboardType: TextInputType.number,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           style: TextStyle(
             color: mono700,
             fontWeight: FontWeight.bold,
@@ -234,6 +250,7 @@ class _ExpenditureRegisterPageState extends State<ExpenditureRegisterPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: mono100,
         bottomSheet: Padding(
           padding: const EdgeInsets.all(24.0),
           child: SizedBox(
@@ -304,6 +321,148 @@ class _ExpenditureRegisterPageState extends State<ExpenditureRegisterPage> {
       ),
     );
   }
-}
 
-class DateFormat {}
+  Widget _getCategoryView(BuildContext context) {
+    return StatefulBuilder(
+        builder: (BuildContext context, StateSetter monthStateSet) {
+      return CategoryView();
+    });
+    // return StatefulBuilder(
+    //   builder: (BuildContext context, StateSetter monthStateSet) {
+    //     return Container(
+    //         height: 400,
+    //         decoration: BoxDecoration(
+    //           color: Colors.white,
+    //           borderRadius: BorderRadius.only(
+    //             topLeft: Radius.circular(20),
+    //             topRight: Radius.circular(20),
+    //           ),
+    //         ),
+    //         child: ListView(
+    //           children: [
+    //             TextField(
+    //               keyboardType: TextInputType.multiline,
+    //               maxLines: 4,
+    //               cursorColor: mono700,
+    //               style: TextStyle(
+    //                 color: mono700,
+    //                 fontWeight: FontWeight.bold,
+    //                 fontSize: 14,
+    //               ),
+    //               decoration: InputDecoration(
+    //                 contentPadding: EdgeInsets.zero,
+    //                 border: InputBorder.none,
+    //                 hintText: "메모 입력",
+    //                 hintStyle: TextStyle(color: mono400),
+    //               ),
+    //             ),
+    //             TextField(
+    //               keyboardType: TextInputType.multiline,
+    //               maxLines: 4,
+    //               cursorColor: mono700,
+    //               style: TextStyle(
+    //                 color: mono700,
+    //                 fontWeight: FontWeight.bold,
+    //                 fontSize: 14,
+    //               ),
+    //               decoration: InputDecoration(
+    //                 contentPadding: EdgeInsets.zero,
+    //                 border: InputBorder.none,
+    //                 hintText: "메모 입력",
+    //                 hintStyle: TextStyle(color: mono400),
+    //               ),
+    //             ),
+    //             TextField(
+    //               keyboardType: TextInputType.multiline,
+    //               maxLines: 4,
+    //               cursorColor: mono700,
+    //               style: TextStyle(
+    //                 color: mono700,
+    //                 fontWeight: FontWeight.bold,
+    //                 fontSize: 14,
+    //               ),
+    //               decoration: InputDecoration(
+    //                 contentPadding: EdgeInsets.zero,
+    //                 border: InputBorder.none,
+    //                 hintText: "메모 입력",
+    //                 hintStyle: TextStyle(color: mono400),
+    //               ),
+    //             ),
+    //           ],
+    //         ));
+    //   },
+    // );
+  }
+
+  Widget _getCalendarView(BuildContext context) {
+    return StatefulBuilder(
+      builder: (BuildContext context, StateSetter monthStateSet) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+            ),
+          ),
+          child: TableCalendar(
+            headerStyle: HeaderStyle(
+              headerMargin: EdgeInsets.only(bottom: 8),
+              titleCentered: true,
+              titleTextFormatter: (date, dm) {
+                return DateTimeUtils.getCalendarTitle(date);
+              },
+              formatButtonVisible: false,
+            ),
+            calendarFormat: CalendarFormat.month,
+            firstDay: DateTime.utc(2010, 10, 16),
+            lastDay: DateTime.utc(2030, 3, 14),
+            focusedDay: selectedDate,
+            selectedDayPredicate: (day) {
+              return isSameDay(selectedDate, day);
+            },
+            onDaySelected: (selectedDay, focusedDay) {
+              this.selectedDate = selectedDay;
+              monthStateSet(() {});
+              setState(() {});
+              print(selectedDay);
+            },
+            calendarBuilders: CalendarBuilders(
+              todayBuilder: (context, day, DateTime focusedDay) {
+                return Center(
+                  child: Text(
+                    day.day.toString(),
+                    style: TextStyle(
+                      color: chart100,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                );
+              },
+              selectedBuilder: (context, day, focusedDay) {
+                return Center(
+                  child: ClipOval(
+                    child: Container(
+                      width: 38,
+                      height: 38,
+                      color: mono700,
+                      child: Center(
+                        child: Text(
+                          day.day.toString(),
+                          style: TextStyle(
+                            color: mono100,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
+  }
+}

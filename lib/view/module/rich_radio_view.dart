@@ -22,6 +22,8 @@ class _RichRadioViewState extends State<RichRadioView> {
 
   var selectedBgColor = mono600;
 
+  double fontSize = 14;
+
   final double buttonSpace = 8;
 
   @override
@@ -43,7 +45,7 @@ class _RichRadioViewState extends State<RichRadioView> {
             title,
             style: TextStyle(
               color: selectedTextColor,
-              fontSize: 14,
+              fontSize: fontSize,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -53,7 +55,7 @@ class _RichRadioViewState extends State<RichRadioView> {
             ),
             shadowColor: Colors.black54,
             primary: Colors.black54,
-            minimumSize: Size(50, 30),
+            minimumSize: Size(64, 36),
             padding: EdgeInsets.all(1),
             backgroundColor: selectedBgColor,
           ),
@@ -73,7 +75,7 @@ class _RichRadioViewState extends State<RichRadioView> {
             title,
             style: TextStyle(
               color: unselectedTextColor,
-              fontSize: 14,
+              fontSize: fontSize,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -83,7 +85,7 @@ class _RichRadioViewState extends State<RichRadioView> {
             ),
             shadowColor: Colors.black54,
             primary: Colors.black54,
-            minimumSize: Size(50, 30),
+            minimumSize: Size(64, 36),
             padding: EdgeInsets.all(1),
             backgroundColor: unselectedBgColor,
           ),

@@ -9,3 +9,5 @@ const Color mono600 = Color(0xFF837272);
 const Color mono700 = Color(0xFF564747);
 
 const Color red400 = Color(0xFFFF7A7A);
+
+const Color chart100 = Color(0xFFFFAB87);
